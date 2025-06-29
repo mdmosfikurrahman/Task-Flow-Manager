@@ -6,7 +6,6 @@ public static class ServiceCollectionExtensions
     {
         services.RegisterServices();
         services.RegisterRepositories();
-        services.RegisterValidators();
         services.RegisterAutoMapperProfiles();
     }
 }

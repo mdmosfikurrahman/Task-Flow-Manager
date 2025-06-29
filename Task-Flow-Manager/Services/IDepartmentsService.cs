@@ -7,7 +7,7 @@ public interface IDepartmentsService
 {
     Task<List<DepartmentsResponse>> GetAll();
     Task<DepartmentsResponse> GetById(long id);
-    Task<DepartmentsResponse> Create(DepartmentsRequest dto);
-    Task<DepartmentsResponse> Update(long id, DepartmentsRequest dto);
+    Task<DepartmentsResponse> Create(DepartmentsRequest request);
+    Task<DepartmentsResponse> Update(long id, DepartmentsRequest request);
     Task Delete(long id);
 }
