@@ -19,5 +19,7 @@ public static class UsersRequestValidator
 
         ValidatorUtils.NotEmpty(request.Position, nameof(request.Position));
         ValidatorUtils.MaxLength(request.Position, 100, nameof(request.Position));
+        
+        ValidatorUtils.NotEmpty(request.DepartmentId.ToString(), nameof(request.DepartmentId));
     }
 }

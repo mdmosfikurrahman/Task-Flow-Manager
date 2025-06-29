@@ -8,7 +8,10 @@ using Task_Flow_Manager.Validators;
 
 namespace Task_Flow_Manager.Services.Impl;
 
-public class TasksServiceImpl(ITasksRepository repository) : ITasksService
+public class TasksServiceImpl(
+    ITasksRepository repository,
+    IUsersRepository usersRepository,
+    IProjectsRepository projectsRepository) : ITasksService
 {
     public async Task<List<TasksResponse>> GetAll()
     {
@@ -31,19 +34,43 @@ public class TasksServiceImpl(ITasksRepository repository) : ITasksService
     public async Task<TasksResponse> Create(TasksRequest request)
     {
         TasksRequestValidator.Validate(request);
-        var entity = request.ToEntity<TasksRequest, Tasks>();
-        var saved = await repository.SaveAsync(entity);
+
+        var task = request.ToEntity<TasksRequest, Tasks>();
+
+        var user = await usersRepository.FindByIdAsync(request.AssignedToId)
+            ?? throw new NotFoundException($"User not found with id: {request.AssignedToId}");
+        task.AssignedToId = user.Id;
+        task.AssignedTo = user;
+
+        var project = await projectsRepository.FindByIdAsync(request.ProjectId)
+            ?? throw new NotFoundException($"Project not found with id: {request.ProjectId}");
+        task.ProjectId = project.Id;
+        task.Project = project;
+
+        var saved = await repository.SaveAsync(task);
         return saved.ToResponse<Tasks, TasksResponse>();
     }
 
     public async Task<TasksResponse> Update(long id, TasksRequest request)
     {
         TasksRequestValidator.Validate(request);
+
         var existing = await repository.FindByIdAsync(id);
         if (existing == null)
             throw new NotFoundException($"Task not found with id: {id}");
 
         request.MapToExisting(existing);
+
+        var user = await usersRepository.FindByIdAsync(request.AssignedToId)
+            ?? throw new NotFoundException($"User not found with id: {request.AssignedToId}");
+        existing.AssignedToId = user.Id;
+        existing.AssignedTo = user;
+
+        var project = await projectsRepository.FindByIdAsync(request.ProjectId)
+            ?? throw new NotFoundException($"Project not found with id: {request.ProjectId}");
+        existing.ProjectId = project.Id;
+        existing.Project = project;
+
         var updated = await repository.SaveAsync(existing);
         return updated.ToResponse<Tasks, TasksResponse>();
     }

@@ -12,15 +12,15 @@ public class UsersRepositoryImpl(TaskFlowManagerDbContext db) : IUsersRepository
     public async Task<Users?> FindByIdAsync(long id)
         => await db.User.FirstOrDefaultAsync(u => u.Id == id);
 
-    public async Task<Users> SaveAsync(Users entity)
+    public async Task<Users> SaveAsync(Users user)
     {
-        if (entity.Id == 0)
-            await db.User.AddAsync(entity);
+        if (user.Id == 0)
+            await db.User.AddAsync(user);
         else
-            db.User.Update(entity);
+            db.User.Update(user);
 
         await db.SaveChangesAsync();
-        return entity;
+        return user;
     }
 
     public async Task DeleteByIdAsync(long id)

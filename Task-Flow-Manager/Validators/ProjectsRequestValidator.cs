@@ -10,6 +10,9 @@ public static class ProjectsRequestValidator
         ValidatorUtils.NotEmpty(request.Name, nameof(request.Name));
         ValidatorUtils.MaxLength(request.Name, 100, nameof(request.Name));
 
+        ValidatorUtils.NotEmpty(request.Description, nameof(request.Description));
+        ValidatorUtils.MaxLength(request.Description, 500, nameof(request.Description));
+        
         ValidatorUtils.NotNullDate(request.StartDate, nameof(request.StartDate));
         ValidatorUtils.NotNullDate(request.EndDate, nameof(request.EndDate));
 
@@ -19,5 +22,7 @@ public static class ProjectsRequestValidator
             nameof(request.StartDate),
             nameof(request.EndDate)
         );
+        
+        ValidatorUtils.MustBePositive(request.ManagerId, nameof(request.ManagerId));
     }
 }
