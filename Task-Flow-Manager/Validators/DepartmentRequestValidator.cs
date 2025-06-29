@@ -11,9 +11,9 @@ public static class DepartmentRequestValidator
         ValidatorUtils.MaxLength(request.Name, 50, nameof(request.Name));
 
         ValidatorUtils.NotEmpty(request.Code, nameof(request.Code));
-        ValidatorUtils.MaxLength(request.Code, 3, nameof(request.Code));
+        ValidatorUtils.MaxLength(request.Code, 10, nameof(request.Code));
 
         ValidatorUtils.NotEmpty(request.Location, nameof(request.Location));
-        ValidatorUtils.MaxLength(request.Location, 3, nameof(request.Location));
+        ValidatorUtils.MaxLength(request.Location, 50, nameof(request.Location));
     }
 }
