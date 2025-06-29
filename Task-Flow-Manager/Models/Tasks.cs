@@ -1,6 +1,6 @@
 ﻿namespace Task_Flow_Manager.Models;
 
-public class Task
+public class Tasks
 {
     public long Id { get; set; }
 
@@ -16,7 +16,7 @@ public class Task
 
     public long? ProjectId { get; set; }
 
-    public virtual User? AssignedTo { get; set; }
+    public virtual Users? AssignedTo { get; set; }
 
-    public virtual Project? Project { get; set; }
+    public virtual Projects? Project { get; set; }
 }

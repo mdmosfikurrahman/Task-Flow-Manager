@@ -11,7 +11,7 @@ public static class RepositoryRegistrationExtensions
             {
                 IsClass: true,
                 IsAbstract: false,
-                Namespace: "Task_Flow_Manager.Repository.Impl",
+                Namespace: "Task_Flow_Manager.Repositories.Impl",
                 ContainsGenericParameters: false
             });
 

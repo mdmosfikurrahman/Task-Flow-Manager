@@ -1,6 +1,6 @@
 ﻿namespace Task_Flow_Manager.Models;
 
-public class Department
+public class Departments
 {
     public long Id { get; set; }
 
@@ -10,5 +10,5 @@ public class Department
 
     public string? Location { get; set; }
 
-    public virtual ICollection<User> user { get; set; } = new List<User>();
+    public virtual ICollection<Users> user { get; set; } = new List<Users>();
 }

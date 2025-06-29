@@ -1,6 +1,6 @@
 ﻿namespace Task_Flow_Manager.Models;
 
-public class Project
+public class Projects
 {
     public long Id { get; set; }
 
@@ -14,7 +14,7 @@ public class Project
 
     public long? ManagerId { get; set; }
 
-    public virtual User? Manager { get; set; }
+    public virtual Users? Manager { get; set; }
 
-    public virtual ICollection<Task> task { get; set; } = new List<Task>();
+    public virtual ICollection<Tasks> task { get; set; } = new List<Tasks>();
 }

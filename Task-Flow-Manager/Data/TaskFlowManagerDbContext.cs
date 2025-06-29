@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Task_Flow_Manager.Models;
-using Task = Task_Flow_Manager.Models.Task;
 
 namespace Task_Flow_Manager.Data;
 
@@ -15,13 +14,13 @@ public partial class TaskFlowManagerDbContext : DbContext
     {
     }
 
-    public virtual DbSet<Department> Department { get; set; }
+    public virtual DbSet<Departments> Department { get; set; }
 
-    public virtual DbSet<Project> Project { get; set; }
+    public virtual DbSet<Projects> Project { get; set; }
 
-    public virtual DbSet<Task> Task { get; set; }
+    public virtual DbSet<Tasks> Task { get; set; }
 
-    public virtual DbSet<User> User { get; set; }
+    public virtual DbSet<Users> User { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseMySql("server=localhost;port=3306;user=root;password=root;database=TaskFlowManager",
@@ -33,7 +32,7 @@ public partial class TaskFlowManagerDbContext : DbContext
             .UseCollation("utf8mb4_0900_ai_ci")
             .HasCharSet("utf8mb4");
 
-        modelBuilder.Entity<Department>(entity =>
+        modelBuilder.Entity<Departments>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -42,7 +41,7 @@ public partial class TaskFlowManagerDbContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(255);
         });
 
-        modelBuilder.Entity<Project>(entity =>
+        modelBuilder.Entity<Projects>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -56,7 +55,7 @@ public partial class TaskFlowManagerDbContext : DbContext
                 .HasConstraintName("fk_project_manager");
         });
 
-        modelBuilder.Entity<Task>(entity =>
+        modelBuilder.Entity<Tasks>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -77,7 +76,7 @@ public partial class TaskFlowManagerDbContext : DbContext
                 .HasConstraintName("fk_task_project");
         });
 
-        modelBuilder.Entity<User>(entity =>
+        modelBuilder.Entity<Users>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
