@@ -15,4 +15,10 @@ public static class ValidatorUtils
         if (!string.IsNullOrEmpty(value) && value.Length > maxLength)
             throw new ValidationException($"{fieldName} cannot exceed {maxLength} characters.", fieldName);
     }
+
+    public static void EndDateNotBeforeStartDate(DateOnly? start, DateOnly? end, string startFieldName, string endFieldName)
+    {
+        if (start.HasValue && end.HasValue && end < start)
+            throw new ValidationException($"{endFieldName} cannot be earlier than {startFieldName}.", endFieldName);
+    }
 }

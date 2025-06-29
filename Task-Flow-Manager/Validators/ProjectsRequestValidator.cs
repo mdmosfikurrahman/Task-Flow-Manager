@@ -10,10 +10,14 @@ public static class ProjectsRequestValidator
         ValidatorUtils.NotEmpty(request.Name, nameof(request.Name));
         ValidatorUtils.MaxLength(request.Name, 100, nameof(request.Name));
 
-        if (request.StartDate.HasValue && request.EndDate.HasValue &&
-            request.EndDate < request.StartDate)
-        {
-            throw new ArgumentException("EndDate cannot be earlier than StartDate");
-        }
+        ValidatorUtils.NotEmpty(request.StartDate.ToString(), nameof(request.StartDate));
+        ValidatorUtils.NotEmpty(request.EndDate.ToString(), nameof(request.EndDate));
+        
+        ValidatorUtils.EndDateNotBeforeStartDate(
+            request.StartDate, 
+            request.EndDate, 
+            nameof(request.StartDate), 
+            nameof(request.EndDate)
+        );
     }
 }

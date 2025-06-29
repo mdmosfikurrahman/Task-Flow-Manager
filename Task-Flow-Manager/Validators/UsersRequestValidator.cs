@@ -13,10 +13,10 @@ public static class UsersRequestValidator
         ValidatorUtils.NotEmpty(request.Email, nameof(request.Email));
         ValidatorUtils.MaxLength(request.Email, 100, nameof(request.Email));
 
-        if (!string.IsNullOrWhiteSpace(request.Phone))
-            ValidatorUtils.MaxLength(request.Phone, 20, nameof(request.Phone));
-
-        if (!string.IsNullOrWhiteSpace(request.Position))
-            ValidatorUtils.MaxLength(request.Position, 100, nameof(request.Position));
+        ValidatorUtils.NotEmpty(request.Phone, nameof(request.Phone));
+        ValidatorUtils.MaxLength(request.Phone, 20, nameof(request.Phone));
+        
+        ValidatorUtils.NotEmpty(request.Position, nameof(request.Position));
+        ValidatorUtils.MaxLength(request.Position, 100, nameof(request.Position));
     }
 }
