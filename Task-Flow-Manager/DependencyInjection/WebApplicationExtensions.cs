@@ -33,6 +33,7 @@ public static class WebApplicationExtensions
     {
         app.UseAuthorization();
         app.MapControllers();
+        app.MapGraphQL("/api/v1/graphql");
     }
 
     private static void OpenBrowser(string url)
