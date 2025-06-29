@@ -8,10 +8,10 @@ namespace Task_Flow_Manager.Repositories.Impl;
 public class DepartmentsRepositoryImpl(TaskFlowManagerDbContext db) : IDepartmentsRepository
 {
     public async Task<List<Departments>> FindAllAsync()
-        => await db.Department.ToListAsync();
+        => await db.Department.Include(d => d.user).ToListAsync();
 
     public async Task<Departments?> FindByIdAsync(long id)
-        => await db.Department.FirstOrDefaultAsync(d => d.Id == id);
+        => await db.Department.Include(d => d.user).FirstOrDefaultAsync(d => d.Id == id);
 
     public async Task<Departments> SaveAsync(Departments entity)
     {

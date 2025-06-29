@@ -7,10 +7,10 @@ namespace Task_Flow_Manager.Repositories.Impl;
 public class UsersRepositoryImpl(TaskFlowManagerDbContext db) : IUsersRepository
 {
     public async Task<List<Users>> FindAllAsync()
-        => await db.User.ToListAsync();
+        => await db.User.Include(u => u.Department).ToListAsync();
 
     public async Task<Users?> FindByIdAsync(long id)
-        => await db.User.FirstOrDefaultAsync(u => u.Id == id);
+        => await db.User.Include(u => u.Department).FirstOrDefaultAsync(u => u.Id == id);
 
     public async Task<Users> SaveAsync(Users user)
     {
