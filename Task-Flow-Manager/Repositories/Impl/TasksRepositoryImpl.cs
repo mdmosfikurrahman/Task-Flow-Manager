@@ -7,19 +7,10 @@ namespace Task_Flow_Manager.Repositories.Impl;
 public class TasksRepositoryImpl(TaskFlowManagerDbContext db) : ITasksRepository
 {
     public async Task<List<Tasks>> FindAllAsync()
-        => await db.Task
-            .Include(t => t.AssignedTo)
-            .ThenInclude(u => u.Department)
-            .Include(t => t.Project)
-            .ToListAsync();
+        => await db.Task.ToListAsync();
 
     public async Task<Tasks?> FindByIdAsync(long id)
-        => await db.Task
-            .Include(t => t.AssignedTo)
-            .ThenInclude(u => u.Department)
-            .Include(t => t.Project)
-            .FirstOrDefaultAsync(t => t.Id == id);
-
+        => await db.Task.FirstOrDefaultAsync(t => t.Id == id);
 
     public async Task<Tasks> SaveAsync(Tasks entity)
     {

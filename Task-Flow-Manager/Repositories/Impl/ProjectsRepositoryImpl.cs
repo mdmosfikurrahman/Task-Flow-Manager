@@ -7,10 +7,10 @@ namespace Task_Flow_Manager.Repositories.Impl;
 public class ProjectsRepositoryImpl(TaskFlowManagerDbContext db) : IProjectsRepository
 {
     public async Task<List<Projects>> FindAllAsync()
-        => await db.Project.Include(p => p.Manager).ToListAsync();
+        => await db.Project.ToListAsync();
 
     public async Task<Projects?> FindByIdAsync(long id)
-        => await db.Project.Include(p => p.Manager).FirstOrDefaultAsync(p => p.Id == id);
+        => await db.Project.FirstOrDefaultAsync(p => p.Id == id);
 
     public async Task<Projects> SaveAsync(Projects entity)
     {
