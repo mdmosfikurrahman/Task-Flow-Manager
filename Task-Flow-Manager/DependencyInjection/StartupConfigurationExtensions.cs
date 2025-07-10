@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Task_Flow_Manager.Data;
+using Task_Flow_Manager.Infrastructure.Config;
 
 namespace Task_Flow_Manager.DependencyInjection;
 
@@ -14,6 +15,7 @@ public static class StartupConfigurationExtensions
         builder.ConfigureApiVersioning();
         builder.ConfigureMvcAndSwagger();
         builder.ConfigureGraphQl();
+        builder.ConfigureAppSettings();
         builder.Services.RegisterApplicationServices();
     }
 
@@ -84,5 +86,10 @@ public static class StartupConfigurationExtensions
         {
             schemaBuilder.AddTypeExtension(resolver);
         }
+    }
+
+    private static void ConfigureAppSettings(this WebApplicationBuilder builder)
+    {
+        builder.Services.Configure<SchemaSettings>(builder.Configuration.GetSection("SchemaSettings"));
     }
 }

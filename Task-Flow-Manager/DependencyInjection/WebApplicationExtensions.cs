@@ -7,14 +7,15 @@ public static class WebApplicationExtensions
 {
     public static void UseProjectConfiguration(this WebApplication app)
     {
-        app.UseGlobalExceptionHandling();
+        app.UseMiddlewares();
         app.UseSwaggerIfDevelopment();
         app.UseRoutingAndAuthorization();
     }
 
-    private static void UseGlobalExceptionHandling(this WebApplication app)
+    private static void UseMiddlewares(this WebApplication app)
     {
         app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
+        app.UseMiddleware<BlockDirectSchemaAccessMiddleware>();
     }
 
     private static void UseSwaggerIfDevelopment(this WebApplication app)
