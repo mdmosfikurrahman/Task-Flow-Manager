@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using GrpcContracts;
 
 namespace Task_Flow_Manager.DependencyInjection;
 
@@ -33,5 +34,14 @@ public static class ServiceRegistrationExtensions
         // Register HTTP client
         services.AddHttpClient();
         services.AddHttpContextAccessor();
+        services.AddGrpcClient<ClientService.ClientServiceClient>(options =>
+            {
+                options.Address = new Uri("http://localhost:5001");
+            })
+            .ConfigureChannel(options =>
+            {
+                options.Credentials = Grpc.Core.ChannelCredentials.Insecure;
+            });
+
     }
 }
